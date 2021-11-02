@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node",
+    "start": "ts-node src/index.ts",
     "dev": "nodemon src/index.ts --exec ts-node",
     "test": "jest -c ./jest.unit.json",
     "test:coverage": "jest --coverage -c ./jest.unit.json"
