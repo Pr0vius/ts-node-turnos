@@ -5,7 +5,7 @@ const transports = [];
 transports.push(new winston.transports.Console());
 if (config.env === "production") {
   transports.push(
-    new winston.transports.File({ filename: "Errors.log", level: "Error" })
+    new winston.transports.File({ filename: "Errors.logs", level: "Error" })
   );
 }
 
