@@ -22,7 +22,7 @@ describe("POST AUTH/REGISTER: ", () => {
     expect(response.body.data.username).toContain("theman69");
     expect(response.body.data.name).toContain("John Doe");
     expect(response.body.data.email).toContain("John@Doe.com");
-    expect(response.body.data.password).toBeNull();
+    expect(response.body.data.password).toBeUndefined();
   });
   afterEach(async () => {
     await User.deleteMany();

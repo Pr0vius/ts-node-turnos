@@ -1,6 +1,7 @@
 import { Types } from "mongoose";
 
 export interface IUser {
+  _id?: string;
   name?: string;
   email: string;
   username: string;
@@ -8,7 +9,7 @@ export interface IUser {
   company?: Types.ObjectId[];
 }
 export interface IUserLogin {
-  email:  string;
+  email: string;
   password: string;
 }
 export interface ICompany {

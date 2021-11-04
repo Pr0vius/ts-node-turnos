@@ -12,7 +12,14 @@ export class AuthService {
   }
   async singUp(user: IUser) {
     user.password = await bcrypt.hash(user.password, 10);
-    return await userRepo.createUser(user);
+    const newUser = await userRepo.createUser(user);
+    return {
+      _id: newUser?._id,
+      name: newUser?.name,
+      username: newUser?.username,
+      email: newUser?.email,
+      company: newUser?.company,
+    };
   }
   async singIn({ email, password }: IUserLogin) {
     return await userRepo.findUser({ email, password });
