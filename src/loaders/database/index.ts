@@ -10,8 +10,8 @@ const connectDatabase = async () => {
       useFindAndModify: false,
       useCreateIndex: true,
     });
-
     logger.info(`DB is CONNECTED ${CONNECTION.connection.host}`);
+    return CONNECTION;
   } catch (err) {
     logger.error(`Error at Database connection\n ${err}`);
   }
