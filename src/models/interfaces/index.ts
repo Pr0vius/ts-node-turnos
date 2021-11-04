@@ -15,7 +15,7 @@ export interface IUserLogin {
 export interface ICompany {
   name: string;
   users: Types.ObjectId[];
-  turns: Types.ObjectId[];
+  turns?: Types.ObjectId[];
 }
 
 export interface ITurn {
