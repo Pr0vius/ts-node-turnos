@@ -7,12 +7,11 @@ import { initialUsers, getAllUsers } from "./helpers";
 export const api = supertest(server.app);
 const { prefix } = config;
 
-describe("Get all Users:", () => {
+describe("GET /users:", () => {
   beforeEach(async () => {
     await User.deleteMany();
     await User.insertMany(initialUsers);
   });
-
   test("headers", async () => {
     await api
       .get(`${prefix}/user`)
@@ -21,6 +20,6 @@ describe("Get all Users:", () => {
   });
   test("body", async () => {
     const content = await getAllUsers();
-    expect(content).toContain("some");
+    expect(content).toContain("TheMan");
   });
 });
