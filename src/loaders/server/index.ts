@@ -1,4 +1,3 @@
-
 import express, { Application, Request, Response, NextFunction } from "express";
 import morgan from "morgan";
 import cors from "cors";
@@ -6,6 +5,7 @@ import "colors";
 import config from "../../config";
 import logger from "../logger";
 import isAliveRoutes from "../../routes/isAlive.routes";
+import authRoutes from "../../routes/auth.routes";
 import { errorHandler } from "../../middlewares/errorHandler";
 
 export class ExpressServer {
@@ -31,12 +31,13 @@ export class ExpressServer {
     this.app.use(cors());
   }
   private routes() {
+    this.app.use(`${this.prefix}`, authRoutes);
     this.app.use(`${this.prefix}`, isAliveRoutes);
   }
   private errorHandler() {
     this.app.use(errorHandler);
   }
-  start(): void {
+  public start(): void {
     try {
       this.app.listen(this.app.get("port"));
     } catch (err) {
@@ -46,4 +47,4 @@ export class ExpressServer {
   }
 }
 
-export default new ExpressServer()
+export default new ExpressServer();
