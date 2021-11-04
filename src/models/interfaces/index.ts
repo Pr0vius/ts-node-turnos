@@ -1,14 +1,25 @@
-import { PopulatedDoc, Document } from "mongoose";
+import { Types } from "mongoose";
 
 export interface IUser {
-  name: string;
+  name?: string;
+  email: string;
   username: string;
   password: string;
-  company: PopulatedDoc<ICompany & Document>;
+  company?: Types.ObjectId[];
 }
-
+export interface IUserLogin {
+  email:  string;
+  password: string;
+}
 export interface ICompany {
   name: string;
-  dates: PopulatedDoc<Document>;
-  users: PopulatedDoc<IUser & Document>;
+  users: Types.ObjectId[];
+  turns: Types.ObjectId[];
+}
+
+export interface ITurn {
+  turn: Date;
+  for: string;
+  completed: boolean;
+  company: Types.ObjectId[];
 }
