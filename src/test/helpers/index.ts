@@ -1,7 +1,10 @@
+import supertest from "supertest";
+import server from "../../loaders/server";
 import { IUser } from "../../models/interfaces";
 import config from "../../config";
-import { api } from "../user.test";
 const { prefix } = config;
+
+export const api = supertest(server.app);
 
 export const initialUsers: IUser[] = [
   {
@@ -15,8 +18,4 @@ export const initialUsers: IUser[] = [
 export const getAllUsers = async () => {
   const response = await api.get(`${prefix}/users`);
   return response.body.data;
-};
-export const registerUser = async () => {
-  const response = await api.post(`${prefix}/register`).send(initialUsers[0]);
-  return response.body.data
 };
