@@ -1,10 +1,19 @@
+import { IUser, IUserLogin } from "../models/interfaces";
 import UserSchema from "../models/UserSchema";
 
-export class UserRepository {
-  async createUser(body: object) {
+class UserRepository {
+  async createUser(body: IUser): Promise<IUser | null> {
     return await UserSchema.create(body);
   }
-  async findUser() {
-    return await UserSchema.findOne();
+  async findUser(user: IUser | IUserLogin): Promise<IUser | null> {
+    return await UserSchema.findOne(user);
+  }
+  async findUserByUsername(username: string): Promise<IUser | null> {
+    return await UserSchema.findOne({ username });
+  }
+  async findUserByEmail(email: string): Promise<IUser | null> {
+    return await UserSchema.findOne({ email });
   }
 }
+
+export default new UserRepository();
