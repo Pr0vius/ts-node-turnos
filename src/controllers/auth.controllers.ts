@@ -7,7 +7,7 @@ export const login = async (req: Req, res: Res, next: Next) => {
   try {
     const { email, password } = req.body;
     const user = await AuthService.singIn({ email, password });
-    res.json(new Success(200, user));
+    res.status(200).json(new Success(200, user));
   } catch (err: any) {
     next(
       new ErrorResponse(
@@ -24,7 +24,7 @@ export const register = async (req: Req, res: Res, next: Next) => {
     const { username, name, password, company, email } = req.body;
     const userData = { username, name, password, company, email };
     const user = await AuthService.singUp(userData);
-    res.json(new Success(201, user));
+    res.status(201).json(new Success(201, user));
   } catch (err: any) {
     next(
       new ErrorResponse(
