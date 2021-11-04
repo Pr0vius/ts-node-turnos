@@ -2,9 +2,8 @@ import supertest from "supertest";
 import server from "../loaders/server";
 import User from "../models/UserSchema";
 import config from "../config";
-import { initialUsers, getAllUsers } from "./helpers";
+import { initialUsers, api } from "./helpers";
 
-export const api = supertest(server.app);
 const { prefix } = config;
 
 describe("GET /users:", () => {
@@ -17,9 +16,5 @@ describe("GET /users:", () => {
       .get(`${prefix}/user`)
       .expect(200)
       .expect("Content-Type", /application\/json/);
-  });
-  test("body", async () => {
-    const content = await getAllUsers();
-    expect(content).toContain("TheMan");
   });
 });

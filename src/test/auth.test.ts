@@ -1,23 +1,33 @@
-import supertest from "supertest";
-import server from "../loaders/server";
+import connectDatabase from "../loaders/database";
+import { api, initialUsers } from "./helpers";
 import User from "../models/UserSchema";
 import config from "../config";
-import { registerUser } from "./helpers";
 
-export const api = supertest(server.app);
 const { prefix } = config;
 
 describe("POST AUTH/REGISTER: ", () => {
-  beforeEach(async () => {
-    await User.deleteMany();
-  }, 60000);
+  let connection: any;
+  beforeAll(async () => {
+    connection = await connectDatabase();
+  });
   test("headers", async () => {
-    await api
+    const response = await api
       .post(`${prefix}/register`)
-      .expect("Content-Type", /application\/json/);
-  }, 60000);
+      .send(initialUsers[0])
+      .expect("Content-Type", /application\/json/)
+      .expect(201);
+  });
   test("body", async () => {
-    const content = await registerUser();
-    expect(content).toContain('TheMan')
-  },60000);
+    const response = await api.post(`${prefix}/register`).send(initialUsers[0]);
+    expect(response.body.data.username).toContain("theman69");
+    expect(response.body.data.name).toContain("John Doe");
+    expect(response.body.data.email).toContain("John@Doe.com");
+    expect(response.body.data.password).toBeNull();
+  });
+  afterEach(async () => {
+    await User.deleteMany();
+  });
+  afterAll(() => {
+    connection.disconnect();
+  });
 });
