@@ -1,0 +1,6 @@
+export const USER_ROLE = "USER_ROLE";
+export const CLIENT_ROLE = "CLIENT_ROLE";
+export const MODERATOR_ROLE = "MODERATOR_ROLE";
+export const ADMIN_ROLE = "ADMIN_ROLE";
+
+export const ROLES = [USER_ROLE, CLIENT_ROLE, MODERATOR_ROLE, ADMIN_ROLE];
