@@ -9,7 +9,11 @@ export const errorHandler = (
   next: NextFunction
 ) => {
   const code = err.code || 500;
-  logger.error(`${code} - ${err.message} - ${req.originalUrl} - ${req.ip}`.red);
+  logger.error(
+    `${code} - ${err.message} - ${err.data ? err.data : null} - ${
+      req.originalUrl
+    } - ${req.ip}`.red
+  );
   logger.error(`${err.stack}`);
   res.status(code).json({
     code,
