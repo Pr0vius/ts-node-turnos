@@ -13,7 +13,7 @@ export const login = async (req: Req, res: Res, next: Next) => {
       new ErrorResponse(
         err.code || 500,
         "Couln't Login",
-        err.message || "Something went wrong"
+        err.data || "Something went wrong"
       )
     );
   }
@@ -30,7 +30,7 @@ export const register = async (req: Req, res: Res, next: Next) => {
       new ErrorResponse(
         err.code || 500,
         "Couln't Register",
-        err.message || "Something went wrong"
+        err.data || "Something went wrong"
       )
     );
   }
