@@ -27,7 +27,7 @@ export class ExpressServer {
   }
   private middlewares() {
     this.app.use(express.json());
-    this.app.use(morgan("dev"));
+    config.env == "development" ? this.app.use(morgan("dev")) : null;
     this.app.use(cors());
   }
   private routes() {
