@@ -1,5 +1,3 @@
-import supertest from "supertest";
-import server from "../loaders/server";
 import User from "../models/UserSchema";
 import config from "../config";
 import { initialUsers, api } from "./helpers";
