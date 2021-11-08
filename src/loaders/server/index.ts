@@ -2,11 +2,12 @@ import express, { Application } from "express";
 import morgan from "morgan";
 import cors from "cors";
 import "colors";
+import { errorHandler } from "../../middlewares/errorHandler";
 import config from "../../config";
 import logger from "../logger";
 import isAliveRoutes from "../../routes/isAlive.routes";
 import authRoutes from "../../routes/auth.routes";
-import { errorHandler } from "../../middlewares/errorHandler";
+import companyRoutes from "../../routes/company.routes";
 
 export class ExpressServer {
   public app: Application;
@@ -33,6 +34,7 @@ export class ExpressServer {
   private routes() {
     this.app.use(`${this.prefix}`, authRoutes);
     this.app.use(`${this.prefix}`, isAliveRoutes);
+    this.app.use(`${this.prefix}/company`, companyRoutes);
   }
   private errorHandler() {
     this.app.use(errorHandler);
