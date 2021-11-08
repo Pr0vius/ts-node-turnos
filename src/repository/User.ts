@@ -14,6 +14,9 @@ class UserRepository {
   async findUserByEmail(email: string): Promise<IUser | null> {
     return await UserSchema.findOne({ email });
   }
+  async findUserById(id: string) {
+    return await UserSchema.findById(id);
+  }
 }
 
 export default new UserRepository();
