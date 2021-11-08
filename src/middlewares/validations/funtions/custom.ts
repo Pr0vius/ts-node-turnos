@@ -28,12 +28,13 @@ export const validateJWT = async (req: Req, res: Res, next: Next) => {
     const user = await AuthService.validateToken(token);
     req.user = user;
     next();
-  } catch (err) {
+  } catch (err: any) {
     next(
       new ErrorResponse(
-        400,
-        "Can't validate the token",
-        "Please provide an authentification token in Authorization header"
+        err.status || 400,
+        err.message || "Can't validate the token",
+        err.data ||
+          "Please provide an authentification token in Authorization header"
       )
     );
   }
