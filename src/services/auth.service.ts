@@ -33,12 +33,34 @@ export class AuthService {
     }
     const token = this.encrypt(user._id);
     return {
-      id: user._id,
+      _id: user._id,
       name: user.name,
       username: user.username,
       email: user.email,
       token,
     };
+  }
+  public async validateToken(token: string | undefined) {
+    if (!token) {
+      throw new ErrorResponse(401, "Authentication Failed", "Token Required");
+    }
+    try {
+      const decoded = jwt.verify(token, config.jwt.secret);
+      const id = (<any>decoded).id;
+      const user = await userRepo.findUserById(id);
+      if (!user) {
+        throw new ErrorResponse(401, "Authentication Failed", "Invalid Token");
+      }
+      return {
+        _id: user._id,
+        name: user.name,
+        username: user.username,
+        email: user.email,
+        company: user.company,
+      };
+    } catch (error) {
+      throw new ErrorResponse(401, "Authentication Failed", "Invalid Token");
+    }
   }
 }
 export default new AuthService();
