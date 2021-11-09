@@ -2,6 +2,7 @@ import { Request as Req, Response as Res, NextFunction as Next } from "express";
 import { ErrorResponse } from "../../../helpers/ErrorResponse";
 import AuthService from "../../../services/auth.service";
 import userRepo from "../../../repository/User";
+import companyRepo from "../../../repository/Company";
 /*
   Users
 */
@@ -15,6 +16,16 @@ export const emailIsUniqueValidator = async (email: string) => {
   const userFound = await userRepo.findUserByEmail(email);
   if (userFound) {
     throw new ErrorResponse(400, undefined, "Username already exist");
+  }
+};
+
+/*
+  Company
+*/
+export const companyNameIsUniqueValidator = async (name: string) => {
+  const companyFound = await companyRepo.findByName(name);
+  if (companyFound) {
+    throw new ErrorResponse(400, undefined, "Company already exist");
   }
 };
 
