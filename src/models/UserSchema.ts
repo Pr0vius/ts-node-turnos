@@ -6,7 +6,7 @@ const userSchema = new Schema<IUser, Model<IUser>, IUser>({
   email: { type: String, required: true, unique: true },
   name: { type: String },
   password: { type: String, required: true },
-  company: [{ type: Schema.Types.ObjectId, ref: "Company" }],
+  company: { type: Schema.Types.ObjectId, ref: "Company" },
 });
 
 export default model<IUser>("User", userSchema);
