@@ -6,7 +6,7 @@ export interface IUser {
   email: string;
   username: string;
   password: string;
-  company?: Types.ObjectId[];
+  company?: Types.ObjectId;
 }
 export interface IUserLogin {
   email: string;
