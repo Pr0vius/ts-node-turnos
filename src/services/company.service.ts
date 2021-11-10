@@ -1,12 +1,18 @@
 import CompanyRepo from "../repository/Company";
+import UserService from "./user.service";
+import { IUser } from "../models/interfaces";
 
 class CompanyService {
-  async findAll() {}
-  findById() {}
+  async findAll() {
+    return await CompanyRepo.getCompanyList();
+  }
+  async findById() {}
 
-  async create(userID: string, body: any) {
-    const company = { ...body, user: [userID] };
-    return await CompanyRepo.createNewCompany(company);
+  async create(user: IUser, body: any) {
+    const company = { ...body, users: [user._id] };
+    const newCompany = await CompanyRepo.createNewCompany(company);
+    await UserService.addCompany(user, newCompany._id);
+    return newCompany;
   }
 }
 
