@@ -4,8 +4,7 @@ import { SuccessResponse as Success } from "../helpers/SuccessResponse";
 import companyService from "../services/company.service";
 export const getAllCompanies = async (req: Req, res: Res, next: Next) => {
   try {
-    console.log(req.user);
-    res.status(200).json(new Success(200, "Nice"));
+    res.status(200).json(new Success(200, await companyService.findAll()));
   } catch (err: any) {
     throw new ErrorResponse(
       err.code || 500,
