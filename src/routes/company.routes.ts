@@ -9,6 +9,8 @@ import {
 } from "../middlewares/validations/company";
 const router = Router();
 
-router.get("/", getCompaniesValidator, getAllCompanies);
-router.post("/", postCompanyValidation, createCompany);
+router
+  .route("/")
+  .get(getCompaniesValidator, getAllCompanies)
+  .post(postCompanyValidation, createCompany);
 export default router;
